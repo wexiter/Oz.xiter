@@ -1,0 +1,918 @@
+<html><head><base href="https://example.com/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary-color: #00ffb3;
+  --secondary-color: #1c1c1c;
+  --background: #0a0a0a;
+  --text-color: #ffffff;
+  --accent-color: #ff6b6b;
+  --gold-gradient: linear-gradient(135deg, #00ffb3, #0074ff);
+}
+
+body {
+  background: var(--background);
+  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 450px;
+  background: var(--secondary-color);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--gold-gradient);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(0, 255, 179, 0.3);
+  padding-bottom: 15px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+.close-btn {
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: var(--accent-color);
+}
+
+h1 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: var(--primary-color);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.feature-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.feature-item {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.feature-item label {
+  font-size: 15px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 26px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #444;
+  transition: .4s;
+  border-radius: 26px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background: var(--gold-gradient);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-inject {
+  background: var(--gold-gradient);
+  color: #000;
+}
+
+.btn-clean {
+  background: transparent;
+  border: 2px solid var(--accent-color);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 179, 0.3);
+}
+
+#notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold-gradient);
+  color: #000;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: none;
+  box-shadow: 0 5px 15px rgba(0, 255, 179, 0.3);
+  z-index: 1000;
+}
+
+.credits {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 13px;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+.countdown {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.watermark {
+  position: absolute;
+  opacity: 0.1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.watermark-top-left {
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  transform: rotate(-45deg);
+}
+
+.watermark-bottom-right {
+  bottom: 10px;
+  right: 10px;
+  font-size: 14px;
+  transform: rotate(45deg);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating-credit {
+  position: absolute;
+  font-size: 12px;
+  color: var(--primary-color);
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+    padding: 20px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">CRACKED BY TOP G (XIT)90%HS 👹</div>
+    <div class="close-btn">×</div>
+  </div>
+  <h1>VIP Aimbot Options</h1>
+
+  <ul class="feature-list">
+    <li class="feature-item">
+      <label>ELITE AIMBOT</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li class="feature-item">
+      <label>PRECISION CHECK</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li class="feature-item">
+      <label>AUTO HEAD</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li class="feature-item">
+      <label>NO RECOIL 20%</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li class="feature-item">
+      <label>REGEDIT</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+  </ul>
+  <div class="buttons">
+    <button class="btn btn-inject" id="injectBtn">ACTIVATE</button>
+    <button class="btn btn-clean" onclick="resetPage()">RESET</button>
+    <script>function resetPage() {
+      location.reload();
+    }</script>
+  </div>
+  <div class="credits">
+    <p>CRACKED BY TOP G TG</p>
+  </div>
+</div>
+
+<div id="notification">ACTIVATING VIP PANEL...</div>
+
+<div class="watermark watermark-top-left">@PoundZXitt</div>
+<div class="watermark watermark-bottom-right">TOP G </div>
+
+<div class="floating-credit" style="top: 20%; left: 5%;">@TopPoundZz‼️ </div>
+<div class="floating-credit" style="top: 40%; right: 5%;">@PoundZXitt </div>
+<div class="floating-credit" style="bottom: 30%; left: 10%;">@TOP G </div>
+
+<script>
+// Ensure DOM is fully loaded before running scripts
+document.addEventListener('DOMContentLoaded', (event) => {
+  const injectBtn = document.getElementById('injectBtn');
+  const notification = document.getElementById('notification');
+  const countdownElement = document.getElementById('countdown');
+
+  // Inject button functionality
+  injectBtn.addEventListener('click', function() {
+    notification.style.display = 'block';
+    notification.textContent = 'ACTIVATING VIP PANEL...';
+    setTimeout(() => {
+      notification.textContent = 'VIP ACCESS GRANTED';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 2000);
+    }, 1500);
+  });
+
+  // Toggle functionality
+  document.querySelectorAll('.toggle input').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      console.log(this.parentElement.previousElementSibling.textContent + " is now " + (this.checked ? "ENABLED" : "DISABLED"));
+    });
+  });
+
+  // Countdown functionality
+  function startCountdown() {
+    let totalSeconds = 9 * 60 * 60 + 20 * 60; // 9 hours and 20 minutes in seconds
+    
+    function updateCountdown() {
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      
+      countdownElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      
+      if (totalSeconds <= 0) {
+        clearInterval(countdownInterval);
+        lockOptions();
+      } else {
+        totalSeconds--;
+      }
+    }
+
+    updateCountdown(); // Initial call to set the correct time immediately
+    const countdownInterval = setInterval(updateCountdown, 1000);
+  }
+
+  function lockOptions() {
+    const toggles = document.querySelectorAll('.feature-toggle');
+    toggles.forEach(toggle => {
+      toggle.disabled = true;
+      toggle.parentElement.classList.add('disabled');
+    });
+    
+    notification.style.display = 'block';
+    notification.textContent = 'Opciones bloqueadas. Compre la versión VIP. Att: @KrixXIT YT';
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 5000);
+  }
+
+  // Animation for floating credits
+  document.querySelectorAll('.floating-credit').forEach((el, index) => {
+    el.style.animation = `float ${3 + index * 0.5}s ease-in-out infinite`;
+  });
+
+  // Start the countdown when the page loads
+  startCountdown();
+});
+</script>
+<script>
+  // Import the necessary libraries
+const ios = require('ios-webkit-debug-proxy');
+const puppeteer = require('puppeteer');
+// Set up the iOS device connection
+ios.connect('100067.ff.connect.garena.com', (err, device) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  // Launch the Free Fire app
+  device.launchApp('com.dts.freefireth', (err, app) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    // Get the app's web view
+    app.getWebView((err, webView) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      // Create a new page
+      webView.createPage((err, page) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        // Inject the aiming script
+        page.evaluate(() => {
+          // Get the game's canvas element
+          const canvas = document.querySelector('canvas');
+          // Get the game's context
+          const ctx = canvas.getContext('2d');
+          // Set the aiming speed (higher value = faster aiming)
+          const aimingSpeed = 10;
+          // Set the aiming accuracy (higher value = more accurate)
+          const aimingAccuracy = 0.5;
+          // Function to get the player's position
+          function getPlayerPosition() {
+            // Get the player's x and y coordinates
+            const playerX = ctx.canvas.width / 2;
+            const playerY = ctx.canvas.height / 2;
+            return { x: playerX, y: playerY };
+          }
+          // Function to get the enemy's position
+          function getEnemyPosition() {
+            // Get the enemy's x and y coordinates (this will require image processing or machine learning to detect enemies)
+            const enemyX = 0;
+            const enemyY = 0;
+            return { x: enemyX, y: enemyY };
+          }
+          // Function to aim at the enemy's head
+          function aimAtEnemyHead() {
+            // Get the player's position
+            const playerPosition = getPlayerPosition();
+            // Get the enemy's position
+            const enemyPosition = getEnemyPosition();
+            // Calculate the distance between the player and the enemy
+            const distanceX = enemyPosition.x - playerPosition.x;
+            const distanceY = enemyPosition.y - playerPosition.y;
+            // Calculate the angle to aim at the enemy's head
+            const angle = Math.atan2(distanceY, distanceX);
+            // Move the crosshair to the calculated angle
+            // This will require interacting with the game's UI elements
+            // For demonstration purposes, we'll just log the angle
+            console.log(`Aiming at angle: ${angle}`);
+          }
+          // Run the aiming function at an interval
+          setInterval(aimAtEnemyHead, aimingSpeed);
+        });
+      });
+    });
+  });
+});
+// Obtener el objeto de la cámara
+var cámara = getCameraObject();
+// Obtener el objeto del jugador
+var jugador = getPlayerObject();
+// Establecer el modo de apuntar en "auto"
+setAimMode("auto");
+// Recorrer todos los enemigos en la pantalla
+for (var enemigo in getEnemiesOnScreen()) {
+  // Calcular la posición y la distancia del enemigo
+  var posiciónEnemigo = getEnemyPosition(enemigo);
+  var distancia = calculateDistance(jugador, posiciónEnemigo);
+  // Si el enemigo está dentro del rango, apuntar a él
+  if (distancia < 100) {
+    aimAtEnemy(posiciónEnemigo);
+  }
+}
+// Disparar al enemigo apuntado
+shoot();
+// Función para obtener el objeto de la cámara
+function getCameraObject() {
+  // Utilizar el framework de hacking de juegos para obtener el objeto de la cámara
+  return iOSGG.getCameraObject();
+}
+// Función para obtener el objeto del jugador
+function getPlayerObject() {
+  // Utilizar el framework de hacking de juegos para obtener el objeto del jugador
+  return iOSGG.getPlayerObject();
+}
+// Función para establecer el modo de apuntar
+function setAimMode(modo) {
+  // Utilizar el framework de hacking de juegos para establecer el modo de apuntar
+  iOSGG.setAimMode(modo);
+}
+// Función para obtener los enemigos en la pantalla
+function getEnemiesOnScreen() {
+  // Utilizar el framework de hacking de juegos para obtener los enemigos en la pantalla
+  return iOSGG.getEnemiesOnScreen();
+}
+// Función para calcular la distancia entre dos puntos
+function calculateDistance(punto1, punto2) {
+  // Calcular la distancia utilizando el teorema de Pitágoras
+  return Math.sqrt(Math.pow(punto2.x - punto1.x, 2) + Math.pow(punto2.y - punto1.y, 2));
+}
+// Función para apuntar a un enemigo
+function aimAtEnemy(posiciónEnemigo) {
+  // Utilizar el framework de hacking de juegos para apuntar al enemigo
+  iOSGG.aimAtEnemy(posiciónEnemigo);
+}
+// Función para disparar
+function shoot() {
+  // Utilizar el framework de hacking de juegos para disparar
+  iOSGG.shoot();
+}
+// Importar las bibliotecas necesarias
+const puppeteer = require('puppeteer');
+const ios = require('ios-webkit-debug-proxy');
+const brain = require('brain.js'); // biblioteca de machine learning
+// Configuración del modelo de machine learning
+const net = new brain.NeuralNetwork();
+net.fromJSON({
+  "layers": [
+    {"input": "2", "neurons": "3", "activation": "relu"},
+    {"input": "3", "neurons": "2", "activation": "relu"},
+    {"input": "2", "neurons": "1", "activation": "sigmoid"}
+  ]
+});
+// Entrenar el modelo con imágenes de enemigos
+const trainingData = [
+  { input: [0, 0], output: [0] }, // imagen de fondo
+  { input: [1, 0], output: [1] }, // imagen de enemigo
+  { input: [0, 1], output: [1] }, // imagen de enemigo
+  // ...
+];
+net.train(trainingData, {
+  errorThresh: 0.005,
+  iterations: 2000,
+  log: true
+});
+// Conectar a la aplicación de Free Fire en iOS
+ios.connect('100067.ff.connect.garena.com', (err, device) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  // Lanzar la aplicación de Free Fire
+  device.launchApp('com.dts.freefireth', (err, app) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    // Obtener la vista web de la aplicación
+    app.getWebView((err, webView) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      // Crear una nueva página
+      webView.createPage((err, page) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        // Inyectar el script de aiming
+        page.evaluate(() => {
+          // Obtener el elemento canvas del juego
+          const canvas = document.querySelector('canvas');
+          // Obtener el contexto del canvas
+          const ctx = canvas.getContext('2d');
+          // Configurar la velocidad de aiming
+          const aimingSpeed = 100;
+          // Configurar la precisión de aiming
+          const aimingAccuracy = 100;
+          // Función para obtener la posición del jugador
+          function getPlayerPosition() {
+            // Obtener las coordenadas x e y del jugador
+            const playerX = ctx.canvas.width / 2;
+            const playerY = ctx.canvas.height / 2;
+            return { x: playerX, y: playerY };
+          }
+          // Función para obtener la posición del enemigo
+          function getEnemyPosition() {
+            // Obtener las coordenadas x e y del enemigo
+            const enemyX = 0;
+            const enemyY = 0;
+            return { x: enemyX, y: enemyY };
+          }
+          // Función para detectar enemigos
+          function detectEnemies() {
+            // Obtener la imagen del canvas
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            // Procesar la imagen con el modelo de machine learning
+            const output = net.run(imageData);
+            // Devolver la posición del enemigo si se detecta
+            if (output[0] > 0.5) {
+              return getEnemyPosition();
+            } else {
+              return null;
+            }
+          }
+          // Función para apuntar a la cabeza del enemigo
+          function aimAtEnemyHead() {
+            // Obtener la posición del jugador
+            const playerPosition = getPlayerPosition();
+            // Detectar enemigos
+            const enemyPosition = detectEnemies();
+            // Calcular la distancia entre el jugador y el enemigo
+            const distanceX = enemyPosition.x - playerPosition.x;
+            const distanceY = enemyPosition.y - playerPosition.y;
+            // Calcular el ángulo para apuntar a la cabeza del enemigo
+            const angle = Math.atan2(distanceY, distanceX);
+            // Mover el cursor a la posición calculada
+            // Esto requerirá interactuar con los elementos de la interfaz de usuario del juego
+            // Para fines de demostración, solo se registrará el ángulo
+            console.log(`Aiming at angle: ${angle}`);
+          }
+          // Ejecutar la función de aiming a intervalos
+          setInterval(aimAtEnemyHead, aimingSpeed);
+        });
+      });
+    });
+  });
+});
+// Importar las bibliotecas necesarias
+const puppeteer = require('puppeteer');
+const ios = require('ios-webkit-debug-proxy');
+// Configuración del script
+const aimingSpeed = 100; // velocidad de aiming
+const aimingAccuracy = 200; // precisión de aiming
+const recoilReduction = 200; // reducción de recoil
+// Conectar a la aplicación de Free Fire en iOS
+ios.connect('100067.ff.connect.garena.com', (err, device) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  // Lanzar la aplicación de Free Fire
+  device.launchApp('com.dts.freefireth', (err, app) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    // Obtener la vista web de la aplicación
+    app.getWebView((err, webView) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      // Crear una nueva página
+      webView.createPage((err, page) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        // Inyectar el script de aiming
+        page.evaluate(() => {
+          // Obtener el elemento canvas del juego
+          const canvas = document.querySelector('canvas');
+          // Obtener el contexto del canvas
+          const ctx = canvas.getContext('2d');
+          // Función para obtener la posición del jugador
+          function getPlayerPosition() {
+            // Obtener las coordenadas x e y del jugador
+            const playerX = ctx.canvas.width / 2;
+            const playerY = ctx.canvas.height / 2;
+            return { x: playerX, y: playerY };
+          }
+          // Función para obtener la posición del enemigo
+          function getEnemyPosition() {
+            // Obtener las coordenadas x e y del enemigo
+            const enemyX = 0;
+            const enemyY = 0;
+            return { x: enemyX, y: enemyY };
+          }
+          // Función para reducir el recoil
+          function reduceRecoil() {
+            // Obtener la velocidad actual del cursor
+            const cursorSpeed = ctx.canvas.width / 100;
+            // Reducir la velocidad del cursor
+            ctx.canvas.width -= cursorSpeed * recoilReduction;
+          }
+          // Función para apuntar a la cabeza del enemigo
+          function aimAtEnemyHead() {
+            // Obtener la posición del jugador
+            const playerPosition = getPlayerPosition();
+            // Obtener la posición del enemigo
+            const enemyPosition = getEnemyPosition();
+            // Calcular la distancia entre el jugador y el enemigo
+            const distanceX = enemyPosition.x - playerPosition.x;
+            const distanceY = enemyPosition.y - playerPosition.y;
+            // Calcular el ángulo para apuntar a la cabeza del enemigo
+            const angle = Math.atan2(distanceY, distanceX);
+            // Mover el cursor a la posición calculada
+            // Esto requerirá interactuar con los elementos de la interfaz de usuario del juego
+            // Para fines de demostración, solo se registrará el ángulo
+            console.log(`Aiming at angle: ${angle}`);
+            // Reducir el recoil
+            reduceRecoil();
+          }
+          // Ejecutar la función de aiming a intervalos
+          setInterval(aimAtEnemyHead, aimingSpeed);
+        });
+      });
+    });
+  });
+});
+// Define a function to get the player's aim direction
+function getAimDirection() {
+    // This function should return a vector representing the player's aim direction
+    // For simplicity, let's assume a basic aim direction calculation
+    let aimDirection = new enemyPosition(0, 0);
+    // Get the player's camera rotation
+    let cameraRotation = getCameraRotation();
+    // Calculate the aim direction based on the camera rotation
+    aimDirection.x = Math.sin(cameraRotation.y) * Math.cos(cameraRotation.x);
+    aimDirection.y = Math.sin(cameraRotation.y) * Math.sin(cameraRotation.x);
+    return aimDirection;
+  }
+  // Define a function to get the enemy's position
+  function getEnemyPosition() {
+    // This function should return a vector representing the enemy's position
+    // For simplicity, let's assume a basic enemy position calculation
+    let enemyPosition = new Vector2(0, 0);
+    // Get the enemy's coordinates from the game API
+    let enemyCoords = getEnemyCoords();
+    // Calculate the enemy's position based on the coordinates
+    enemyPosition.x = enemyCoords.x - getPlayerPosition().x;
+    enemyPosition.y = enemyCoords.y - getPlayerPosition().y;
+    return enemyPosition;
+  }
+  // Define a function to calculate the aim compensation
+  function calculateAimCompensation(aimDirection, enemyPosition) {
+    // This function should return a vector representing the aim compensation
+    // For simplicity, let's assume a basic aim compensation calculation
+    let aimCompensation = new Vector2(0, 0);
+    // Calculate the aim compensation based on the aim direction and enemy position
+    aimCompensation.x = enemyPosition.x - aimDirection.x;
+    aimCompensation.y = enemyPosition.y - aimDirection.y;
+    return aimCompensation;
+  }
+  // Define a function to apply the aim compensation
+  function applyAimCompensation(aimCompensation) {
+    // This function should apply the aim compensation to the player's aim
+    // For simplicity, let's assume a basic aim adjustment
+    let aimAdjustment = new Vector2(aimCompensation.x, aimCompensation.y);
+    // Apply the aim adjustment (this will require game API access)
+    setAimAdjustment(aimAdjustment);
+  }
+  // Example usage:
+  let aimDirection = getAimDirection();
+  let enemyPosition = getEnemyPosition();
+  let aimCompensation = calculateAimCompensation(aimDirection, enemyPosition);
+  applyAimCompensation(aimCompensation);
+  // Get the game's canvas element
+const canvas = document.querySelector('canvas');
+// Get the game's context
+const ctx = canvas.getContext('2d');
+// Set the aiming speed (higher value = faster aiming)
+const aimingSpeed= 10;
+// Set the aiming accuracy (higher value = more accurate)
+const aimingSpeed = 0.5;
+// Function to get the player's position
+function getPlayerPosition() {
+  // Get the player's x and y coordinates
+  const playerX = ctx.canvas.width / 2;
+  const playerY = ctx.canvas.height / 2;
+  return { x: playerX, y: playerY };
+}
+// Function to get the enemy's position
+function getEnemyPosition() {
+  // Get the enemy's x and y coordinates (this will require image processing or machine learning to detect enemies)
+  const enemyX = 0;
+  const enemyY = 0;
+  return { x: enemyX, y: enemyY };
+}
+// Function to aim at the enemy's head
+function aimAtEnemyHead() {
+  // Get the player's position
+  const playerPosition = getPlayerPosition();
+  // Get the enemy's position
+  const enemyPosition = getEnemyPosition();
+  // Calculate the distance between the player and the enemy
+  const distanceX = enemyPosition.x - playerPosition.x;
+  const distanceY = enemyPosition.y - playerPosition.y;
+  // Calculate the angle to aim at the enemy's head
+  const angle = Math.atan2(distanceY, distanceX);
+  // Move the crosshair to the calculated angle
+  // This will require interacting with the game's UI elements
+  // For demonstration purposes, we'll just log the angle
+  console.log(`Aiming at angle: ${angle}`);
+}
+// Run the aiming function at an interval
+setInterval(aimAtEnemyHead, aimingSpeed);
+// Import a 3D vector library (e.g., THREE.js)
+const THREE = require('three');
+function shootHeadshot(targetPosition, targetOrientation) {
+  // Define the head region as a 3D sphere
+  const headRadius = 0.2; // adjust this value based on the game's character model
+  const headCenter = new THREE.Vector3(0, 1.5, 0); // adjust this value based on the game's character model
+  // Calculate the direction from the shooter to the target
+  const direction = new THREE.Vector3();
+  direction.subVectors(targetPosition, shooterPosition);
+  direction.normalize();
+  // Calculate the intersection point between the shot trajectory and the head sphere
+  const intersectionPoint = new THREE.Vector3();
+  intersectionPoint.addVectors(targetPosition, direction.multiplyScalar(headRadius));
+  // Check if the intersection point is within the head region
+  const distanceToHeadCenter = intersectionPoint.distanceTo(headCenter);
+  return distanceToHeadCenter <= headRadius;
+}
+// Example usage:
+const targetPosition = new THREE.Vector3(10, 1, 5);
+const targetOrientation = new THREE.Quaternion();
+console.log(shootHeadshot(targetPosition, targetOrientation));
+// Configuración de sensibilidad
+sensitivity = 200 // Sensibilidad general del juego
+sensitivity_ads = 150 // Sensibilidad al apuntar
+sensitivity_scope = 100// Sensibilidad al usar mira telescópica
+// Configuración de velocidad de movimiento
+movement_speed = 200 // Velocidad de movimiento general
+movement_acceleration = 200 // Aceleración del movimiento
+movement_deceleration = 200 // Desaceleración del movimiento
+// Configuración de velocidad de giro
+rotation_speed = 200 // Velocidad de giro general
+rotation_acceleration = 180 // Aceleración del giro
+rotation_deceleration = 150 // Desaceleración del giro
+// Configuración de zoom
+zoom_sensitivity = 50 // Sensibilidad del zoom
+zoom_speed = 100 // Velocidad del zoom
+// Configuración de disparo
+fire_mode = 1 // Modo de disparo automático
+fire_rate = 200 // Velocidad de disparo
+fire_range = 200 // Rango de disparo
+// Configuración de mira
+aim_assist = 200 // Asistencia de mira activada
+aim_sensitivity = 200 // Sensibilidad de mira
+aim_speed = 200 // Velocidad de mira
+aim_acceleration = 120 // Aceleración de la mira
+aim_deceleration = 100 // Desaceleración de la mira
+// Configuración de cabeza
+headshot_priority = 200 // Prioridad de disparo en la cabeza
+headshot_sensitivity = 200 // Sensibilidad de disparo en la cabeza
+headshot_range = 200 // Rango de disparo en la cabeza
+// Configuración adicional
+camera_sensitivity = 200 // Sensibilidad de la cámara
+camera_speed = 120 // Velocidad de la cámara
+camera_acceleration = 100 // Aceleración de la cámara
+camera_deceleration = 80 // Desaceleración de la cámara
+// Define a function to get the player's aim direction
+function getAimDirection() {
+    // This function should return a vector representing the player's aim direction
+    // For simplicity, let's assume a basic aim direction calculation
+    let aimDirection = new Vector2(0, 0);
+    // Get the player's camera rotation
+    let cameraRotation = getCameraRotation();
+    // Calculate the aim direction based on the camera rotation
+    aimDirection.x = Math.sin(cameraRotation.y) * Math.cos(cameraRotation.x);
+    aimDirection.y = Math.sin(cameraRotation.y) * Math.sin(cameraRotation.x);
+    return aimDirection;
+  }
+  // Define a function to get the enemy's head position
+  function getEnemyHeadPosition() {
+    // This function should return a vector representing the enemy's head position
+    // For simplicity, let's assume a basic enemy head position calculation
+    let enemyHeadPosition = new Vector2(0, 0);
+    // Get the enemy's coordinates from the game API
+    let enemyCoords = getEnemyCoords();
+    // Calculate the enemy's head position based on the coordinates
+    enemyHeadPosition.x = enemyCoords.x - getPlayerPosition().x;
+    enemyHeadPosition.y = enemyCoords.y - getPlayerPosition().y + 0.5; // Add an offset to aim at the head
+    return enemyHeadPosition;
+  }
+  // Define a function to calculate the aim compensation
+  function calculateAimCompensation(aimDirection, enemyHeadPosition) {
+    // This function should return a vector representing the aim compensation
+    // For simplicity, let's assume a basic aim compensation calculation
+    let aimCompensation = new Vector2(0, 0);
+    // Calculate the aim compensation based on the aim direction and enemy head position
+    aimCompensation.x = enemyHeadPosition.x - aimDirection.x;
+    aimCompensation.y = enemyHeadPosition.y - aimDirection.y;
+    // Apply a correction to prevent the shots from going over the head
+    aimCompensation.y = Math.max(aimCompensation.y, -0.1); // Adjust this value to your liking
+    return aimCompensation;
+  }
+  // Define a function to apply the aim compensation
+  function applyAimCompensation(aimCompensation) {
+   // This function should apply the aim compensation to the player's aim
+    // For simplicity, let's assume a basic aim adjustment
+    let aimAdjustment = new Vector2(aimCompensation.x, aimCompensation.y);
+    // Apply the aim adjustment (this will require game API access)
+    setAimAdjustment(aimAdjustment);
+  }
+  // Example usage:
+  let aimDirection = getAimDirection();
+  let enemyHeadPosition = getEnemyHeadPosition();
+  let aimCompensation = calculateAimCompensation(aimDirection, enemyHeadPosition);
+  applyAimCompensation(aimCompensation);
+</script>
+</body>
+</html>
